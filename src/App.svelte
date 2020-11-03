@@ -5,6 +5,7 @@
   // Imports
   import { onMount, tick } from "svelte";
   import embed from "vega-embed";
+  import {changeset} from "vega";
 
   // TODO: use these instead to make pretty
   // import RangeSlider from "svelte-range-slider-pips";
@@ -56,8 +57,14 @@
     mo = rf_model_tile[a_i][r_i];
     sl = comp_model_tile[a_i][r_i];
 
-    vegaView.data("vals", sl);
+    console.log("mo: ", mo)
+
+    // vegaView.data("vals", sl);
     // vegaView.data("mo_av", mo);
+
+    // TODO: This is still choppy when updating. Maybe using id per point would help?
+    vegaView.change('vals', changeset().insert(sl).remove(() => true) );
+    vegaView.change('mo_av', changeset().insert(mo).remove(() => true) );
 
     vegaView.runAsync();
   }
@@ -71,7 +78,7 @@
   onMount(() => {
     console.log("Mounting...");
 
-    embed(vegaBox, beeswarmSpec as Spec).then((v) => {
+    embed(vegaBox, beeswarmSpec as Spec, {"renderer": "svg"}).then((v) => {
       vegaView = v.view;
       mounted = true;
       console.log("Mounted!");

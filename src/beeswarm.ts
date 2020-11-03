@@ -9,7 +9,7 @@ export let beeswarmSpec = {
       {"name": "cy", "update": "height / 2"}
     ],
     "data": [
-      { "name": "vals" },
+      { "name": "vals"},
       {"name": "mo_av"}
     ],
     "scales": [
@@ -40,7 +40,7 @@ export let beeswarmSpec = {
           },
           "update": {
             "stroke": {"value": "grey"},
-            "strokeDash": {"value": "4,2"},
+            "strokeDash": {"value": [4,2]},
             "x": { "scale":"xscale", "field":"data"},
             "y": {"value": 0},
             "y2": {"field": {"group": "height"}},
